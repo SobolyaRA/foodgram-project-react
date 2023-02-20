@@ -5,6 +5,10 @@ from recipe.models import (Ingredient, Tag, Recipe, IngredientAmount,
 
 from users.models import Follow
 
+class RecipeIngredientInline(admin.TabularInline):
+    model = IngredientAmount
+    min_num = 1
+
 
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('name', 'measurement_unit')
@@ -18,6 +22,7 @@ class TagAdmin(admin.ModelAdmin):
 class RecipeAdmin(admin.ModelAdmin):
     list_display = ('author', 'name', 'count_favorites')
     list_filter = ('author', 'name', 'tags')
+    inlines = (RecipeIngredientInline,)
 
     def count_favorites(self, obj):
         return FavoriteList.objects.filter(recipe=obj).count()

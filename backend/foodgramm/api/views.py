@@ -24,8 +24,8 @@ from .serializers import (RecipeListSerializer, ShoppingListSerializer,
 
 
 class UserViewSet(UserViewSet):
-    '''Работа с пользователями
-    '''
+    """Работа с пользователями
+    """
     queryset = User.objects.all()
     pagination_class = CustomPagination
     serializer_class = UserSerializer
@@ -37,8 +37,8 @@ class UserViewSet(UserViewSet):
         permission_classes=[IsAuthenticated]
     )
     def subscribe(self, request, id=None):
-        ''' Подписка на пользователя
-        '''
+        """Подписка на пользователя
+        """
         user = request.user
         author = get_object_or_404(User, id=id)
         if user == author:
@@ -57,8 +57,8 @@ class UserViewSet(UserViewSet):
 
     @subscribe.mapping.delete
     def delete_subscribe(self, request, id=None):
-        ''' Отписка от пользователя
-        '''
+        """Отписка от пользователя
+        """
         user = request.user
         author = get_object_or_404(User, id=id)
         subscribe = get_object_or_404(
@@ -72,8 +72,8 @@ class UserViewSet(UserViewSet):
         permission_classes=[IsAuthenticated]
     )
     def subscriptions(self, request):
-        ''' Список подписок пользователя
-        '''
+        """Список подписок пользователя
+        """
         user = request.user
         queryset = Follow.objects.filter(user=user)
         pages = self.paginate_queryset(queryset)
@@ -86,8 +86,8 @@ class UserViewSet(UserViewSet):
 
 
 class TagViewSet(viewsets.ReadOnlyModelViewSet):
-    ''' Работа с тэгами
-    '''
+    """Работа с тэгами
+    """
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     pagination_class = None
@@ -95,8 +95,8 @@ class TagViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class IngredientsViewSet(viewsets.ModelViewSet):
-    ''' Работа с ингредиантами
-    '''
+    """Работа с ингредиантами
+    """
     serializer_class = IngredientSerializer
     queryset = Ingredient.objects.all()
     pagination_class = None
@@ -104,8 +104,8 @@ class IngredientsViewSet(viewsets.ModelViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    ''' Работа с рецептами
-    '''
+    """Работа с рецептами
+    """
     queryset = Recipe.objects.all()
     pagination_class = CustomPagination
     permission_classes = (IsOwnerOrAdminOrReadOnly,)

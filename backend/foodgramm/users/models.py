@@ -7,7 +7,8 @@ from .validators import validate_username, username_validator_not_past_me
 
 
 class User(AbstractUser):
-    '''Кастомная модель пользователя'''
+    """Кастомная модель пользователя
+    """
 
     username = models.CharField(
         verbose_name='Username',
@@ -71,7 +72,8 @@ class User(AbstractUser):
 
 
 class Follow(models.Model):
-    '''Модель подписки на авторов'''
+    """Модель подписки на авторов
+    """
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -86,7 +88,7 @@ class Follow(models.Model):
     )
 
     class Meta:
-        ordering = ['id', ]
+        ordering = ['-author_id', ]
         verbose_name = 'Подписка на автора'
         verbose_name_plural = 'Подписки на авторов'
         constraints = [

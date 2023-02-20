@@ -1,27 +1,18 @@
 import re
 
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
+from users.validators import hex_color_field_validator
 
 User = get_user_model()
 
 
-def hex_color_field_validator(value):
-    '''Проверка, что содержимое поля color в формате HEX
-    '''
-    message = ('Введите цвет в формате HEX.')
-    if not re.search(r'^#(?:[0-9a-fA-F]{3}){1,2}$', value):
-        raise ValidationError(message)
-
-
 class Ingredient(models.Model):
-    '''Модель ингредиента
-    '''
+    """Модель ингредиента
+    """
     name = models.CharField(
         max_length=200,
-        unique=False,
         verbose_name='Название ингредиента',
         help_text='Введите название ингредиента',
     )
@@ -41,8 +32,8 @@ class Ingredient(models.Model):
 
 
 class Tag(models.Model):
-    ''' Модель тэга
-    '''
+    """Модель тэга
+    """
     name = models.CharField(
         max_length=200,
         db_index=True,
@@ -72,27 +63,23 @@ class Tag(models.Model):
 
 
 class Recipe(models.Model):
-    '''Модель рецепта.
+    """Модель рецепта.
     Главная модель приложения, описывающая рецепт.
-    '''
+    """
     name = models.CharField(
         max_length=200,
-        blank=False,
         null=True,
         verbose_name='Название',
         help_text='Введите название рецепта',
     )
     text = models.TextField(
         max_length=1000,
-        blank=False,
-        null=False,
         verbose_name='Описание',
         help_text='Введите описание рецепта',
     )
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        blank=False,
         null=True,
         verbose_name='Автор',
         related_name='recipes',
@@ -116,12 +103,14 @@ class Recipe(models.Model):
         help_text='Выберите тэги',
     )
     cooking_time = models.PositiveIntegerField(
-        blank=False,
-        null=False,
         verbose_name='Время приготовления блюда в минутах',
         validators=[MinValueValidator(
             limit_value=1,
-            message='Минимальное время приготовления - 1 минута')],
+            message='Минимальное время приготовления - 1 минута'),
+            MaxValueValidator(
+                limit_value=300,
+                message = 'Максимальное время приготовления - 300 минут',
+            ),],
     )
     pub_date = models.DateTimeField(
         auto_now_add=True,
@@ -143,9 +132,9 @@ class Recipe(models.Model):
 
 
 class IngredientAmount(models.Model):
-    '''Модель количества ингредиента в рецепте.
+    """Модель количества ингредиента в рецепте.
     Модель связывает Recipe и Ingredient.
-    '''
+    """
     ingredient = models.ForeignKey(
         Ingredient,
         null=True,
@@ -161,12 +150,14 @@ class IngredientAmount(models.Model):
         verbose_name='Рецепт',
     )
     amount = models.PositiveSmallIntegerField(
-        blank=False,
-        null=False,
         verbose_name='Количество ингредиента',
         validators=[MinValueValidator(
             limit_value=1,
-            message='Минимально количество ингредиентов - 1.')],
+            message='Минимально количество ингредиентов - 1.'),
+            MaxValueValidator(
+                limit_value=32,
+                message = 'Максимальное количество - 32.',
+            ),],
     )
 
     class Meta:
@@ -185,9 +176,9 @@ class IngredientAmount(models.Model):
 
 
 class FavoriteList(models.Model):
-    '''Модель избранного рецепта пользователя.
+    """Модель избранного рецепта пользователя.
     Модель связывает Recipe и  User.
-    '''
+    """
     user = models.ForeignKey(
         User,
         null=True,
@@ -218,9 +209,9 @@ class FavoriteList(models.Model):
 
 
 class ShoppingList(models.Model):
-    '''Модель списка покупок.
+    """Модель списка покупок.
     Модель связывает Recipe и  User.
-    '''
+    """
     user = models.ForeignKey(
         User,
         null=True,
