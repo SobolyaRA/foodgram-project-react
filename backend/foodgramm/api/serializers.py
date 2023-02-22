@@ -300,12 +300,12 @@ class ShoppingListSerializer(FavoriteListSerializer):
     def validate(self, data):
         request = self.context.get('request')
         recipe_id = data['recipe'].id
-        purchase_exists = ShoppingList.objects.filter(
+        shopping_cart_exists = ShoppingList.objects.filter(
             user=request.user,
             recipe__id=recipe_id
         ).exists()
 
-        if purchase_exists:
+        if shopping_cart_exists:
             raise serializers.ValidationError(
                 'В списке покупок такой рецепт есть'
             )

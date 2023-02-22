@@ -108,8 +108,8 @@ class Recipe(models.Model):
             limit_value=1,
             message='Минимальное время приготовления - 1 минута'),
             MaxValueValidator(
-                limit_value=300,
-                message = 'Максимальное время приготовления - 300 минут',
+                limit_value=1000,
+                message = 'Максимальное время приготовления - 1000 минут',
             ),],
     )
     pub_date = models.DateTimeField(
@@ -155,8 +155,8 @@ class IngredientAmount(models.Model):
             limit_value=1,
             message='Минимально количество ингредиентов - 1.'),
             MaxValueValidator(
-                limit_value=32,
-                message = 'Максимальное количество - 32.',
+                limit_value=256,
+                message = 'Максимальное количество - 256.',
             ),],
     )
 

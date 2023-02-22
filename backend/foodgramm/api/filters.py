@@ -1,6 +1,6 @@
 import django_filters as filters
 
-from recipe.models import Recipe
+from recipe.models import Recipe, ShoppingList
 from users.models import User
 
 
@@ -29,5 +29,5 @@ class RecipeFilter(filters.FilterSet):
 
     def get_is_in_shopping_cart(self, queryset, name, value):
         if value:
-            return queryset.filter(purchases__user=self.request.user)
+            return queryset.filter(recipe_in_shoplist__user=self.request.user)
         return queryset

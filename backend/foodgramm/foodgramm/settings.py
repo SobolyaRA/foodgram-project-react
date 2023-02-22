@@ -27,9 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-*&c$twp@of$jdv4wg4ho^8s^#(wd&%p5qqu%pkw3j4k(ms@-%_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost',
+ALLOWED_HOSTS = ['130.193.48.183',
+                 'localhost',
                  '127.0.0.1', ]
 
 
@@ -88,10 +89,10 @@ WSGI_APPLICATION = 'foodgramm.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': os.getenv('DB_ENGINE', default='django.db.backends.postgresql'),
-        'NAME': os.getenv('DB_NAME', default='foodgram2'),
+        'NAME': os.getenv('DB_NAME', default='foodgram'),
         'USER': os.getenv('POSTGRES_USER', default='postgres'),
         'PASSWORD': os.getenv('POSTGRES_PASSWORD', default='Azuzag86'),
-        'HOST': os.getenv('DB_HOST', default='localhost'),
+        'HOST': os.getenv('DB_HOST', default='db'),
         'PORT': os.getenv('DB_PORT', default='5432')
     }
 }

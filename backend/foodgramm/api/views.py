@@ -186,11 +186,11 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def download_shopping_cart(self, request):
         queryset = self.get_queryset()
         cart_objects = ShoppingList.objects.filter(user=request.user)
-        recipes = queryset.filter(purchases__in=cart_objects)
-        ingredients = IngredientAmount.objects.filter(recipes__in=recipes)
+        recipe = queryset.filter(recipe_in_shoplist__in=cart_objects)
+        ingredients = IngredientAmount.objects.filter(recipe__in=recipe)
         ing_types = Ingredient.objects.filter(
-            ingredients_amount__in=ingredients
-        ).annotate(total=Sum('ingredients_amount__amount'))
+            ingredient_amount__in=ingredients
+        ).annotate(total=Sum('ingredient_amount__amount'))
 
         lines = [f'{ing_type.name}, {ing_type.total}'
                  f' {ing_type.measurement_unit}' for ing_type in ing_types]
