@@ -5,6 +5,7 @@ from recipe.models import (Ingredient, Tag, Recipe, IngredientAmount,
 
 from users.models import Follow
 
+
 class RecipeIngredientInline(admin.TabularInline):
     model = IngredientAmount
     min_num = 1

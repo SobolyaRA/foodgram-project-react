@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = ['foodgrammqq.sytes.net',
-		 '84.252.129.194',
+                 '84.252.129.194',
                  'localhost',
                  '127.0.0.1', ]
 

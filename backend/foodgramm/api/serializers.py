@@ -150,7 +150,6 @@ class IngredientAmountSerializer(serializers.ModelSerializer):
     def get_measurement_unit(self, amount):
         return self._get_ingredient(amount.ingredient.id).measurement_unit
 
-    
 
 class RecipeListSerializer(serializers.ModelSerializer):
     """Сериализатор для получения списка рецептов
@@ -228,14 +227,14 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
                   'cooking_time')
 
     def create_ingredients(self, ingredients, recipe):
-         IngredientAmount.objects.bulk_create(
+        IngredientAmount.objects.bulk_create(
             [IngredientAmount(
                 ingredient=Ingredient.objects.get(id=ingredient['id']),
                 recipe=recipe,
                 amount=ingredient['amount']
             ) for ingredient in ingredients]
         )
-        
+
     def create(self, validated_data):
         """Создание рецепта
         """
@@ -243,7 +242,7 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
         image = validated_data.pop('image')
         ingredients_data = validated_data.pop('ingredients')
         recipe = Recipe.objects.create(image=image, **validated_data)
-        self.create_ingredients(ingredients=ingredients_data,recipe=recipe)
+        self.create_ingredients(ingredients=ingredients_data, recipe=recipe)
         recipe.tags.set(tags)
         return recipe
 

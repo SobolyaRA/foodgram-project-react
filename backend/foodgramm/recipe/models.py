@@ -1,5 +1,3 @@
-import re
-
 from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -109,8 +107,7 @@ class Recipe(models.Model):
             message='Минимальное время приготовления - 1 минута'),
             MaxValueValidator(
                 limit_value=1000,
-                message = 'Максимальное время приготовления - 1000 минут',
-            ),],
+                message='Максимальное время приготовления - 1000 минут',), ],
     )
     pub_date = models.DateTimeField(
         auto_now_add=True,
@@ -156,8 +153,7 @@ class IngredientAmount(models.Model):
             message='Минимально количество ингредиентов - 1.'),
             MaxValueValidator(
                 limit_value=256,
-                message = 'Максимальное количество - 256.',
-            ),],
+                message='Максимальное количество - 256.',), ],
     )
 
     class Meta:
