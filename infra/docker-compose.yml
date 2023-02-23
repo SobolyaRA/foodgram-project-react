@@ -13,10 +13,7 @@ services:
     - ./.env
 
   backend:
-    #image: sobolyara/foodgram-backend:latest
-    build:
-      context: ../backend/foodgramm
-      dockerfile: Dockerfile
+    image: sobolyara/infra_backend:latest
     restart: always
     volumes:
       - static_value:/app/static/
@@ -28,9 +25,7 @@ services:
 
 
   frontend:
-    build:
-      context: ../frontend
-      dockerfile: Dockerfile
+    image: sobolyara/infra_frontend:latest
     volumes:
       - ../frontend/:/app/result_build/
       
