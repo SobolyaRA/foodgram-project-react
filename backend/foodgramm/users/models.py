@@ -3,7 +3,7 @@ from django.contrib.auth.password_validation import validate_password
 from django.db import models
 from django.db.models import UniqueConstraint
 
-from .validators import validate_username, username_validator_not_past_me
+from .validators import username_validator_not_past_me, validate_username
 
 
 class User(AbstractUser):

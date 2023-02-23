@@ -1,11 +1,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404
 from drf_extra_fields.fields import Base64ImageField
+from recipe.models import (FavoriteList, Ingredient, IngredientAmount, Recipe,
+                           ShoppingList, Tag)
 from rest_framework import serializers
-
-
-from recipe.models import (Ingredient, Tag, Recipe, IngredientAmount,
-                           ShoppingList, FavoriteList)
 from users.models import Follow, User
 
 
