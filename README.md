@@ -1,5 +1,5 @@
 # Проект Foodgram 
-![workflow](https://github.com/SobolyRA/foodgram-project-react/actions/workflows/main.yml/badge.svg)
+![workflow](https://github.com/SobolyaRA/foodgram-project-react/actions/workflows/main.yml/badge.svg)
   
 [![Python](https://img.shields.io/badge/-Python-464646?style=flat-square&logo=Python)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/-Django-464646?style=flat-square&logo=Django)](https://www.djangoproject.com/)
