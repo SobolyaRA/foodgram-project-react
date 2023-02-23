@@ -266,7 +266,7 @@ class CreateUpdateRecipeSerializer(serializers.ModelSerializer):
 
 
 class FavoriteListSerializer(serializers.ModelSerializer):
-    """Сериализатор избранных рецептов 
+    """Сериализатор избранных рецептов
     """
     id = serializers.ReadOnlyField(source='recipe.id')
     name = serializers.ReadOnlyField(source='recipe.name')
