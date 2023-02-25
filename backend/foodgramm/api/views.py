@@ -59,7 +59,7 @@ class UserViewSet(UserViewSet):
         author = get_object_or_404(User, id=id)
         subscribe = get_object_or_404(
             Follow, user=user, author=author
-        )
+         )
         subscribe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -70,7 +70,7 @@ class UserViewSet(UserViewSet):
     def subscriptions(self, request):
         """Список подписок пользователя
         """
-        queryset = User.objects.filter(follower__user=self.request.user)
+        queryset = Follow.objects.filter(user=self.request.user)
         pages = self.paginate_queryset(queryset)
         serializer = UserFollowSerializer(
             pages,
