@@ -70,8 +70,7 @@ class UserViewSet(UserViewSet):
     def subscriptions(self, request):
         """Список подписок пользователя
         """
-        user = request.user
-        queryset = Follow.objects.filter(user=user)
+        queryset = User.objects.filter(follower__user=self.request.user)
         pages = self.paginate_queryset(queryset)
         serializer = UserFollowSerializer(
             pages,
