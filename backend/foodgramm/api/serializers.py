@@ -65,7 +65,6 @@ class UserFollowSerializer(UserSerializer):
     last_name = serializers.ReadOnlyField(source='author.last_name')
     is_subscribed = serializers.SerializerMethodField()
     recipes = serializers.SerializerMethodField()
-    #recipes = ShortRecipeSerializer(many=True, source='author.recipes')
     recipes_count = serializers.SerializerMethodField()
 
     class Meta:
@@ -85,7 +84,7 @@ class UserFollowSerializer(UserSerializer):
     def get_is_subcriber(self, obj):
         return Follow.objects.filter(user=obj.user, author=obj.author
                                      ).exists()
-	
+
     def get_recipes(self, obj):
         request = self.context.get('request')
         limit = request.GET.get('recipes_limit')

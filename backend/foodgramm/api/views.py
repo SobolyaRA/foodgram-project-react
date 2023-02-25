@@ -58,8 +58,7 @@ class UserViewSet(UserViewSet):
         user = request.user
         author = get_object_or_404(User, id=id)
         subscribe = get_object_or_404(
-            Follow, user=user, author=author
-         )
+            Follow, user=user, author=author)
         subscribe.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
